@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 const AuthService = require('../services/authService');
 
-router.get('/token', (req, res, next) => {
+router.get('/token', (req, res) => {
 
     AuthService.authorize(req.query.code).then(data => {
 
-        res.render('profile');
+        res.redirect('/profile');
 
     }).catch(error => {
 
         console.log(error);
+        res.redirect('/');
     });
 
 });

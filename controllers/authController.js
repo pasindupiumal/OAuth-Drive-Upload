@@ -2,9 +2,16 @@ const express = require('express');
 const router = express.Router();
 const AuthService = require('../services/authService');
 
-router.get('/authUrl', (req, res, next) => {
+router.get('/token', (req, res, next) => {
 
-    
+    AuthService.authorize(req.query.code).then(data => {
+
+        res.render('profile');
+
+    }).catch(error => {
+
+        console.log(error);
+    });
 
 });
 

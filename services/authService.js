@@ -2,6 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 const config = require('../config');
+const multer = require('multer');
 const { oauth2 } = require('googleapis/build/src/apis/oauth2');
 
 const tokenPath = config.TOKEN_PATH;
@@ -11,6 +12,22 @@ var {client_secret, client_id, redirect_uris} = "";
 var oAuth2Client = "";
 
 const AuthService = function() {
+
+    this.storage = multer.diskStorage({
+
+        destination: function(req, file, callback) {
+            callback(null, './public/files');
+        },
+        filename: function(req, file, callback) {
+            callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+        }
+    });
+
+    this.upload = multer({
+
+        storage: this.storage,
+
+    }).single('file');
 
 
     this.authorize = (code) => {
@@ -158,6 +175,25 @@ const AuthService = function() {
             }).catch(error => {
 
                 reject({status: 500, message:error.message});
+            });
+
+        });
+    }
+
+    this.uploadFile = (req, res) => {
+
+        return new Promise((resolve, reject) => {
+
+            this.upload(req, res, function(error) {
+
+                if(error){ 
+
+                    reject({status: 500, message: 'Multer error uploading file - '+ error});
+                }
+                else{
+
+                    resolve({status: 200, message: 'Upload successful', data: req.file.path});
+                }
             });
 
         });

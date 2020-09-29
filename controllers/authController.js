@@ -16,6 +16,18 @@ router.get('/token', (req, res) => {
 
 });
 
+router.post('/upload', (req, res) => {
+
+    AuthService.uploadFile(req, res).then(data => {
+
+        console.log(data);
+
+    }).catch(error => {
+
+        console.log(error);
+    })
+})
+
 
 
 

@@ -9,5 +9,25 @@
     <h1>Profile</h1>
     <h4>Name: <%= name %></h4>
     <img src='<%= imgSrc %>'/>
+    
+    <br/>
+
+    <form action="/auth/upload" method="POST" enctype="multipart/form-data">
+        <div>
+          <input
+            type="file"
+            class="form-control"
+            name="file"
+            required
+            id=""
+          />
+        </div>
+        <div>
+          <button>
+            Upload File
+          </button>
+        </div>
+    </form>
+
 </body>
 </html>

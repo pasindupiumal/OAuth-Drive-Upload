@@ -1,2 +1,7 @@
-<h1>Error Status - <%= status %></h1>
-<h1>Error Message - <%= message %></h1>
+<html>
+    <h1> <%= message %> </h1>
+    <h2> <%= error.status %></h2>
+    <pre>
+    <%= error.stack %>
+    </pre>
+</html>

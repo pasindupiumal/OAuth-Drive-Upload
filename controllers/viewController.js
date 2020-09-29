@@ -55,7 +55,17 @@ router.get('/', (req, res) => {
 
 router.get('/profile', (req, res) => {
 
-    res.render('profile');
+    AuthService.getUserInformation().then(data => {
+
+        console.log(data.data.data.name);
+        console.log(data.data.data.picture);
+        res.render('profile', {name: data.data.data.name, imgSrc: data.data.data.picture});
+
+    }).catch(error => {
+
+        console.log(error);
+    });
 });
+
 
 module.exports = router;

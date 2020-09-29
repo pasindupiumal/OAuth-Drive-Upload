@@ -2,21 +2,22 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 const config = require('../config');
+const { oauth2 } = require('googleapis/build/src/apis/oauth2');
 
 const tokenPath = config.TOKEN_PATH;
 const SCOPES = config.SCOPES;
 
+var {client_secret, client_id, redirect_uris} = "";
+var oAuth2Client = "";
 
 const AuthService = function() {
+
 
     this.authorize = (code) => {
 
         return new Promise((resolve, reject) => {
 
-            this.getCredentials().then(credentials => {
-
-                const {client_secret, client_id, redirect_uris} = credentials.data.web;
-                const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+            this.setOAuthClient().then(data => {
 
                 fs.readFile(tokenPath, (error, token) => {
 
@@ -89,10 +90,7 @@ const AuthService = function() {
 
         return new Promise((resolve, reject) => {
 
-            this.getCredentials().then(credentials => {
-
-                const {client_secret, client_id, redirect_uris} = credentials.data.web;
-                const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+            this.setOAuthClient().then(data => {
 
                 const authUrl = oAuth2Client.generateAuthUrl({
                     access_type: 'offline',
@@ -108,6 +106,63 @@ const AuthService = function() {
 
         });
     }
+
+    this.getUserInformation = () => {
+
+        return new Promise((resolve, reject) => {
+
+            this.setOAuthClient().then(data => {
+
+                const oAuth2 = google.oauth2({
+
+                    auth:oAuth2Client,
+                    version: 'v2'
+                });
+
+                oAuth2.userinfo.get((error, response) => {
+
+                    if(error){
+
+                        reject({status:500, message: 'Error retrieving infomration of user - ' + error});
+                    }
+                    else{
+                        resolve({status: 200, message: 'User information retrieved successfully', data: response});
+                    }
+                });
+
+            }).catch(error => {
+
+                reject({status: 500, message:error.message});
+            });
+
+        });
+    }
+
+    this.setOAuthClient = () => {
+
+        return new Promise((resolve, reject) => {
+
+            this.getCredentials().then(credentials => {
+
+                if(credentials.data.web){
+                    ({client_secret, client_id, redirect_uris} = credentials.data.web);
+                }
+
+                if( oAuth2Client === "" ){
+                    console.log('Client has not been set. Setting up');
+                    oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+                }
+
+                resolve({status:200, message:'OAuth client set successfully', data: null});
+
+            }).catch(error => {
+
+                reject({status: 500, message:error.message});
+            });
+
+        });
+    }
+
 
 }
 

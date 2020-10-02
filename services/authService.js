@@ -192,7 +192,45 @@ const AuthService = function() {
                 }
                 else{
 
-                    resolve({status: 200, message: 'Upload successful', data: req.file.path});
+                    const gDrive = google.drive({
+                        
+                        version: 'v3',
+                        auth: oAuth2Client
+                    });
+
+                    const filemetadata = {
+
+                        name: req.file.filename
+                    }
+
+                    const media = {
+
+                        mimeType: req.file.mimeType,
+                        body: fs.createReadStream(req.file.path)
+                    }
+
+                    gDrive.files.create({
+
+                        resource: filemetadata,
+                        media: media,
+                        fields: 'id'
+
+                    }, (error, file) => {
+
+                        if(error){
+                            //Error during upload
+                            reject({status: 500, message: 'Error uploading file to the google drive - ' + error});
+                        }
+                        else{
+
+                            //Detele the file from the files folder
+                            fs.unlinkSync(req.file.path);
+                            resolve({status: 200, message: 'File successfully uploaded to google drive', data: file});
+                        }
+
+                    });
+
+                    
                 }
             });
 

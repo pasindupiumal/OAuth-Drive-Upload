@@ -264,7 +264,6 @@ const AuthService = function() {
 
                     if(files.length) {
 
-                        console.log(files);
                         resolve({status: 200, message: 'Files retrieved successfully.', data: files});
                     }
                     else{
@@ -299,7 +298,6 @@ const AuthService = function() {
                 }
                 else{
 
-                    console.log(result);
                     resolve({status: 200, message: 'File removed successfully from google drive.', data: result});
                 }
             })

@@ -57,22 +57,21 @@ router.get('/profile', (req, res) => {
 
     AuthService.getUserInformation().then(userData => {
 
-        console.log(userData.data.data.name);
-        console.log(userData.data.data.picture);
-
         AuthService.getFilesList().then(data => {
 
             res.render('profile', {name: userData.data.data.name, imgSrc: userData.data.data.picture, fileList: data.data});
         
         }).catch(error => {
 
-            console.log('Error: ' + error.message);
+            console.log('Error: ' + error);
+            res.render('error', {message: error.message, status: error.status});
         })
         
 
     }).catch(error => {
 
         console.log(error);
+        res.render('error', {message: error.message, status: error.status});
     });
 });
 

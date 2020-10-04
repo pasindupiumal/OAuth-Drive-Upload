@@ -20,12 +20,13 @@ router.post('/upload', (req, res) => {
 
     AuthService.uploadFile(req, res).then(data => {
 
-        console.log(data);
-        res.redirect('/profile?action=upload');
+        console.log(data.message);
+        res.redirect('/profile?action=upload&status=true');
 
     }).catch(error => {
 
         console.log(error);
+        res.redirect('/profile?action=upload&status=false');
     })
 });
 

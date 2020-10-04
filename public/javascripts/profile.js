@@ -8,20 +8,26 @@ $(document).ready(function() {
         toastr.success('Login Successful');
     }
     else if(action === 'upload'){
+
+        const status = url.searchParams.get("status");
         
-        toastr.success('File Uploaded Successful');
+        if(status === 'true'){
+            toastr.success('File Uploaded Successfully');
+        }
+        else{
+            toastr.error('Error Occured While Uploading File');
+        }
+        
     }
     else if(action === 'delete'){
         
-        toastr.success('File Removed Successful');
+        toastr.success('File Removed Successfully');
     }
     
 
 });
 
 function deleteButtonClick(fileID) {
-
-    console.log('Hello, World - ' + fileID);
 
     $.post('/auth/delete', {fileID: fileID}).then(data => {
 

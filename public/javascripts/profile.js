@@ -1,6 +1,12 @@
-function deleteButtonClick() {
+$(document).ready(function() {
 
-    console.log('Hello, World');
+    toastr.success('Login Successful');
+
+});
+
+function deleteButtonClick(fileID) {
+
+    console.log('Hello, World - ' + fileID);
 
 }
 

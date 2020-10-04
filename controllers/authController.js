@@ -21,12 +21,27 @@ router.post('/upload', (req, res) => {
     AuthService.uploadFile(req, res).then(data => {
 
         console.log(data);
+        res.redirect('/profile');
 
     }).catch(error => {
 
         console.log(error);
     })
-})
+});
+
+router.post('/delete', (req, res) => {
+
+    AuthService.deleteFileById(req.body.fileID).then(data => {
+
+        res.send({message: data.message, data: data.data});
+
+    }).catch(error => {
+
+        console.log(error);
+    })
+});
+
+
 
 
 

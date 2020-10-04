@@ -55,11 +55,21 @@ router.get('/', (req, res) => {
 
 router.get('/profile', (req, res) => {
 
-    AuthService.getUserInformation().then(data => {
+    AuthService.getUserInformation().then(userData => {
 
-        console.log(data.data.data.name);
-        console.log(data.data.data.picture);
-        res.render('profile', {name: data.data.data.name, imgSrc: data.data.data.picture});
+        console.log(userData.data.data.name);
+        console.log(userData.data.data.picture);
+
+        AuthService.getFilesList().then(data => {
+
+            console.log('Files list from controller' + data.data);
+            res.render('profile', {name: userData.data.data.name, imgSrc: userData.data.data.picture, fileList: data.data});
+        
+        }).catch(error => {
+
+            console.log('Error: ' + error.message);
+        })
+        
 
     }).catch(error => {
 

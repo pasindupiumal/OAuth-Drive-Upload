@@ -237,6 +237,75 @@ const AuthService = function() {
         });
     }
 
+    this.getFilesList = () => {
+
+        return new Promise((resolve, reject) => {
+
+            const gDrive = google.drive({
+
+                version: 'v3',
+                auth: oAuth2Client
+            });
+
+            gDrive.files.list({
+
+                pageSize: 20,
+                fields: 'nextPageToken, files(id, name, iconLink)',
+            
+            }, (error, result) => {
+
+                if(error) {
+
+                    reject({status: 500, message: 'Error retrieving files list from google drive - ' + error});
+                }
+                else{
+
+                    const files = result.data.files;
+
+                    if(files.length) {
+
+                        console.log(files);
+                        resolve({status: 200, message: 'Files retrieved successfully.', data: files});
+                    }
+                    else{
+
+                        resolve({status: 200, message: 'No files found.', data: null});
+                    }
+                }
+            })
+
+        });
+    }
+
+    this.deleteFileById = (fileID) => {
+
+        return new Promise((resolve, reject) => {
+
+            const gDrive = google.drive({
+
+                version: 'v3',
+                auth: oAuth2Client
+            });
+
+            gDrive.files.delete({
+
+                fileId: fileID
+
+            }, (error, result) => {
+
+                if(error){
+
+                    reject({status: 500, message: 'Error removing file from google drive - ' + error});
+                }
+                else{
+
+                    console.log(result);
+                    resolve({status: 200, message: 'File removed successfully from google drive.', data: result});
+                }
+            })
+        });
+    }
+
 
 }
 

@@ -250,7 +250,7 @@ const AuthService = function() {
             gDrive.files.list({
 
                 pageSize: 20,
-                fields: 'nextPageToken, files(id, name, iconLink)',
+                fields: 'nextPageToken, files(id, name, iconLink, version, createdTime, modifiedTime, size, owners)',
             
             }, (error, result) => {
 

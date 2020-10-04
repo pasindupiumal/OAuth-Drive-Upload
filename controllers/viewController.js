@@ -62,7 +62,6 @@ router.get('/profile', (req, res) => {
 
         AuthService.getFilesList().then(data => {
 
-            console.log('Files list from controller' + data.data);
             res.render('profile', {name: userData.data.data.name, imgSrc: userData.data.data.picture, fileList: data.data});
         
         }).catch(error => {

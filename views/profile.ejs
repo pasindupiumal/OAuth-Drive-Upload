@@ -8,6 +8,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="profile.js"></script>
+    <link rel="stylesheet" href="profile.css"/>
 </head>
 <body>
     <h1>Profile</h1>
@@ -39,13 +40,48 @@
           <br/>
           <h4> Most Recent Files</h4>
           <table>
-            <% for(let i=0; i < fileList.length; i++) { %>
-               <tr>
-                 <td><img src='<%= fileList[i].iconLink %>'/></td>
-                 <td><%= fileList[i].name %></td>
-                 <td><button onclick="deleteButtonClick('<%= fileList[i].id %>')">Delete File</button></td>
-               </tr>
-            <% } %>
+
+              <th>
+                <td>File Name</td>
+                <td>Version</td>
+                <td>Created</td>
+                <td>Last Modified</td>
+                <td>File Size</td>
+                <td>Owned By</td>
+              </th>
+                
+              <% for(let i=0; i < fileList.length; i++) {
+                
+                let owner = "";
+                let photoLink = "";
+                let size = "";
+
+                if (!fileList[i].size) {
+                  size = "Not Available";
+                }
+                else{
+                  size = fileList[i].size + " Bytes";
+                }
+                
+                fileList[i].owners.map(data => {
+
+                  owner = data.displayName;
+                  photoLink = data.photoLink;
+                });
+
+                %>
+              
+                <tr>
+                  <td><img src='<%= fileList[i].iconLink %>'/></td>
+                  <td><%= fileList[i].name %></td>
+                  <td><%= fileList[i].version %></td>
+                  <td><%= fileList[i].createdTime %></td>
+                  <td><%= fileList[i].modifiedTime %></td>
+                  <td><%= size %></td>
+                  <td><%= owner%> <img src='<%= photoLink %>'/> </td>
+                  <td><button onclick="deleteButtonClick('<%= fileList[i].id %>')">Delete File</button></td>
+                </tr>
+              <% } %>
             </table>
         </div>
     </form>

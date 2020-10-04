@@ -6,7 +6,7 @@ router.get('/token', (req, res) => {
 
     AuthService.authorize(req.query.code).then(data => {
 
-        res.redirect('/profile');
+        res.redirect('/profile?action=login');
 
     }).catch(error => {
 
@@ -21,7 +21,7 @@ router.post('/upload', (req, res) => {
     AuthService.uploadFile(req, res).then(data => {
 
         console.log(data);
-        res.redirect('/profile');
+        res.redirect('/profile?action=upload');
 
     }).catch(error => {
 
@@ -37,7 +37,7 @@ router.post('/delete', (req, res) => {
 
     }).catch(error => {
 
-        console.log(error);
+        res.send({message: error.message});
     })
 });
 

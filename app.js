@@ -7,6 +7,7 @@ const router = require('./routes/routes');
 const cors = require('cors');
 const session = require('express-session');
 const configs = require('./config');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 //Configurations
 const sessionName = configs.SESSION_NAME;
@@ -14,6 +15,22 @@ const sessionSecret = configs.SESSION_SECRET;
 const environment = configs.ENVIRONMENT;
 
 const app = express();
+
+const mongoDBStore = new MongoDBStore({
+
+  uri: 'mongodb://localhost:27017/OAuth-Drive-Upload',
+  collection: 'mySessions'
+
+}, (error) => {
+
+  if(error) {
+    console.log('Mongodb error - ' + error);
+  }
+  else{
+    console.log('Connected to mongodb for session management successfully.');
+  }
+
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +51,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   secret: sessionSecret,
+  store: mongoDBStore,
   cookie: {
     sameSite: true,
     secure: environment === 'Production'

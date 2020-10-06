@@ -1,8 +1,47 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "muli-regular", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.875;
+  color: #767676;
+  margin: 0;
+  padding: 0;
+  background-image: url('../files/sl.jpg');
 }
 
 a {
-  color: #00B7FF;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, .h01, .h02, .h03, .h04, .h05, .h06 {
+  font-family: "montserrat-regular", sans-serif;
+  color: #000000;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  margin-top: 15rem;
+}
+
+button{
+  color: #ffffff;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-family: "montserrat-regular", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  border: none;
+}
+
+#grad {
+  background-image: linear-gradient(to right, #00a1ff, #00ff8f);
+}
+
+#d1{
+  width: 10rem;
+  height: 10rem;
+  background-color: antiquewhite;
+  background-image: url('./up.png');
 }

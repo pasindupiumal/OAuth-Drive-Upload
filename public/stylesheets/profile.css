@@ -1,4 +1,157 @@
-table, th, td {
+/* table, th, td {
 
     border: 1px solid black;
+} */
+
+
+/* Profile picture styeles */
+.profile-picture {
+    border: 3px solid #555;
+    margin: 2em auto;
+    max-width: 250px;
+    top: 1em;
+    text-align: center;
+    display: block
 }
+
+
+/* File upload table styeles */
+.upload-file {
+    margin: -1em auto;
+    max-width: 400px;
+    top: 1em;
+    text-align: center;
+    display: block
+}
+
+
+
+
+
+
+/* New table styles */
+#dataTable {
+    /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #dataTable td, #dataTable th {
+    border: 1px solid rgba(151, 151, 151, 0.616);
+    padding: 8px;
+  }
+  
+  #dataTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #dataTable tr:hover {
+      background-color: rgba(180, 180, 180, 0.479);
+      cursor: auto;
+    }
+  
+  #dataTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #292929c4;
+    color: white;
+  }
+
+
+
+
+
+
+
+
+  /* Navigation bar Styles */
+  .navbarA {
+    justify-content: space-between;
+}
+
+span {
+    padding-right: 1rem;
+}
+
+.navButton {
+    cursor: pointer;
+}
+
+.navButton:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+
+
+/* navbarA container */
+.navbarA {
+    overflow: hidden;
+    background-color: #1c7eff;
+    font-family: Arial;
+  }
+  
+  /* Links inside the navbarA */
+  .navbarA a {
+    justify-content: space-between;
+    padding-right: 1rem;
+    float: right;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+
+  /* The dropdownB container */
+.dropdownB {
+    float: right;
+    overflow: hidden;
+  }
+  
+  /* dropdownB button */
+  .dropdownB .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+  }
+  
+  /* Add a red background color to navbarA links on hover */
+  .navbarA a:hover, .dropdownB:hover .dropbtn {
+    background-color: #0aafec;
+  }
+  
+  /* dropdownB content (hidden by default) */
+  .dropdownB-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdownB */
+  .dropdownB-content a {
+    float: none;
+    color: black;
+    padding: 10px 12px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  /* Add a grey background color to dropdownB links on hover */
+  .dropdownB-content a:hover {
+    background-color: #ddd;
+  }
+  
+  /* Show the dropdownB menu on hover */
+  .dropdownB:hover .dropdownB-content {
+    display: block;
+  }
